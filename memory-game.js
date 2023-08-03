@@ -36,10 +36,10 @@ function startGame() {
 /** Shuffle array items in-place and return shuffled array. */
 
 function shuffle(items) {
-  // This algorithm does a "perfect shuffle", where there won't be any
+  // "This algorithm does a "perfect shuffle", where there won't be any
   // statistical bias in the shuffle (many naive attempts to shuffle end up not
   // be a fair shuffle). This is called the Fisher-Yates shuffle algorithm; if
-  // you're interested, you can learn about it, but it's not important.
+  // you're interested, you can learn about it, but it's not important."
 
   for (let i = items.length - 1; i > 0; i--) {
     // generate a random index between 0 and i
@@ -51,22 +51,18 @@ function shuffle(items) {
   return items;
 }
 
-/** Create card for every color in colors (each will appear twice)
- *
- * Each div DOM element will have:
- * - a class with the value of the color
- * - a click event listener for each card to handleCardClick
- */
 
 function createCards(colors) {
 
   for (let i = 0; i < CARDS.length; i++) {
     let card = CARDS[i];
     card.cardValue = colors[i];
+    //assign [color] to cardface
+    card.children[1].style.backgroundColor = card.cardValue;
     card.matched = false;
 
-    //TEST
-    card.innerText = card.cardValue;
+    // //TEST
+    // card.innerText = card.cardValue;
 
     card.addEventListener('click', handleCardClick);
   }
@@ -75,23 +71,28 @@ function createCards(colors) {
 /** Flip a card face-up. */
 
 function flipCard(card) {
-  // ... you need to write this ...
+  card.classList.add("flipped");
+
+  // // ***TK Temporary test:
+  // card.style.backgroundColor = card.cardValue;
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
-  // ... you need to write this ...
+  card.classList.remove("flipped");
+
+  // //temporary TK:
+  // card.style.backgroundColor = "transparent";
+
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick() {
   if (!this.matched && !this.classList.contains("selected")) {
-    this.classList.add("selected", "flipped"); //use flipCard method?
-
-    // ***TK Temporary test: (better w/ flipCard method??)
-    this.style.backgroundColor = this.cardValue;
+    this.classList.add("selected");
+    flipCard(this);
 
     CLICK_COUNTER++;
     // check turn end via click counter and call
@@ -108,9 +109,12 @@ function endTurn() {
   if (thisTurnPair[0].cardValue === thisTurnPair[1].cardValue) {
     thisTurnPair.forEach(card => card.matched = true);
   } else {
-    thisTurnPair.forEach(card => card.classList.remove("flipped")); //use unFlip method?
-    //***See above re: better method? TK */
-    thisTurnPair.forEach(card => card.style.backgroundColor = "transparent");
+    //flip back after 1 sec
+    setTimeout(function () {
+      for (let unmatchedCard of thisTurnPair) {
+        unFlipCard(unmatchedCard);
+      }
+    }, 1000);
   };
 
   //remove .selected
@@ -125,5 +129,22 @@ function endTurn() {
 function endGame() {
   //TK do something fun?
 
-  alert(`Congratulations! You finished the game in ${CLICK_COUNTER / 2} turns!`);
+  //setTimeout to allow last card to flip first
+  setTimeout(function () {
+    alert(`Congratulations! You finished the game in ${CLICK_COUNTER / 2} turns!`);
+  }, 1000);
 }
+
+
+//reset button:
+const RESET_BUTTON = document.querySelector('#reset-button');
+
+RESET_BUTTON.addEventListener("click", function () {
+  if (confirm("Do you wish to restart the game?")) {
+    // TK make these unflip() instead once that's working?:
+    for (let card of document.querySelectorAll(".flipped")) {
+      unFlipCard(card);
+    }
+    startGame();
+  }
+});
