@@ -4,9 +4,10 @@
 /** Memory game: find matching pairs of cards and flip both of them. */
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
-const COLORS = [
-  "red", "blue", "green", "orange", "purple", "aquamarine", "yellow",
-  "red", "blue", "green", "orange", "purple", "aquamarine", "yellow"
+const PRINCESS_ARRAY = [
+  "anastasia", "ariel", "azula", "buttercup", "ciri", "consuela", "daisy",
+  "entrapta", "hathaway", "jasmine", "leia", "nausicaa", "paperbag", "peach",
+  "san", "serenity", "shuri", "xena"
 ];
 
 const CARDS = document.getElementsByClassName('gamepiece');
@@ -24,13 +25,17 @@ startGame();
 function startGame() {
 
   CLICK_COUNTER = 0;
-  let colors = shuffle(COLORS);
-  createCards(colors);
+  let princesses = pickPrincesses(PRINCESS_ARRAY);
+  createCards(princesses);
 
 }
 
 
-
+function pickPrincesses(items) {
+  let princessSelection = shuffle(items).slice(0, 7);
+  let princessPairs = princessSelection.concat(princessSelection);
+  return shuffle(princessPairs);
+}
 
 
 /** Shuffle array items in-place and return shuffled array. */
@@ -52,17 +57,15 @@ function shuffle(items) {
 }
 
 
-function createCards(colors) {
+function createCards(princesses) {
 
   for (let i = 0; i < CARDS.length; i++) {
     let card = CARDS[i];
-    card.cardValue = colors[i];
-    //assign [color] to cardface
-    card.children[1].style.backgroundColor = card.cardValue;
+    card.cardValue = princesses[i];
+    //assign [value] to cardface
+    card.children[1].style.backgroundImage = `url(images/faces/${card.cardValue}.png)`;
     card.matched = false;
 
-    // //TEST
-    // card.innerText = card.cardValue;
 
     card.addEventListener('click', handleCardClick);
   }
