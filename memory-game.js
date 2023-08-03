@@ -72,18 +72,12 @@ function createCards(colors) {
 
 function flipCard(card) {
   card.classList.add("flipped");
-
-  // // ***TK Temporary test:
-  // card.style.backgroundColor = card.cardValue;
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
   card.classList.remove("flipped");
-
-  // //temporary TK:
-  // card.style.backgroundColor = "transparent";
 
 }
 
@@ -141,10 +135,13 @@ const RESET_BUTTON = document.querySelector('#reset-button');
 
 RESET_BUTTON.addEventListener("click", function () {
   if (confirm("Do you wish to restart the game?")) {
-    // TK make these unflip() instead once that's working?:
+
+    //flip face-up cards
     for (let card of document.querySelectorAll(".flipped")) {
       unFlipCard(card);
     }
-    startGame();
+
+    //Ope, don't show us those cards before flipping them!! Pesky timeout'd animations.
+    setTimeout(startGame, 1000);
   }
 });

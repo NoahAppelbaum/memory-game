@@ -1,22 +1,41 @@
-/* you can add to or change this. */
+body{
+  display: flex;
+  flex-flow: column;
+  background-color: aliceblue;
+}
+
+h1
+{
+  margin: 60px auto 40px;
+  color:rgb(243, 183, 193);
+  font-size: 100px;
+  text-shadow: 3px 1px black;
+
+}
 
 .gameboard {
+
+  width: 1200px;
   border: 2px solid black;
+  margin: 0 auto;
 
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-auto-flow: row;
   row-gap: 30px;
-  column-gap: 30px;
+  /* column-gap: 30px; */
 
   /* perspective: 800px; */
+
+  background-image: url("images/bg-brick.jpeg");
+  background-repeat: repeat;
 }
 
 .card {
   border: 1px solid black;
   border-radius: 10px;
-  width: 100px;
+  width: 120px;
   height: 140px;
   margin: 20px;
 
@@ -35,29 +54,57 @@
   width: 100%;
   height: 100%;
 
+
   /* TEST */
   text-align: center;
 }
 
 .back {
 
+  background-image: url("images/cardback-peach.jpeg");
+  background-size:cover;
+  border-radius: 10px;
 }
 
 .front {
   transform: rotateY(180deg);
+  border-radius: 10px;
 
 }
 
 .flipped {
-  /* TK make fancier, obvi */
+
   transform: rotateY(180deg);
 
 }
 
 .selected {
-  /* add a li'l glow or something? */
+  /*TK add a li'l glow or something? */
 }
 
 .reset {
+  border: 4px outset gray;
+  background-color: slategray;
+  text-align: center;
+  font: 24px monospace;
+  width:116px;
+  height:136px;
 
+}
+
+.curtains {
+ position: absolute;
+ top:0;
+ left: 50%;
+ transform: translateX(-50%);
+ z-index: -1;
+}
+
+/* responsive grid layout!??
+This is not working :( TK */
+@media only screen and (max-width: 480px) {
+  .gameboard {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  }
 }
