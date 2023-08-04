@@ -153,7 +153,10 @@ const RESET_BUTTON = document.querySelector('#reset-button');
 RESET_BUTTON.addEventListener("click", function () {
   if (confirm("Do you wish to restart the game?")) {
 
-    RESET_BUTTON.classList.remove("selected");
+    let stillSelected = document.querySelectorAll(".selected");
+    for (let item of stillSelected) {
+      item.classList.remove("selected");
+    }
 
     //flip face-up cards
     for (let card of document.querySelectorAll(".flipped")) {
