@@ -16,9 +16,6 @@ let CLICK_COUNTER = 0;
 
 
 //start game on load:
-// document.body.addEventListener('load', startGame);
-//^^ ??? do I need this? Can I just call it?
-
 startGame();
 
 
@@ -126,7 +123,7 @@ function endTurn() {
 function endGame() {
   //TK do something fun?
 
-  //setTimeout to allow last card to flip first
+  //setTimeout to allow last selected card to flip first
   setTimeout(function () {
     alert(`Congratulations! You finished the game in ${CLICK_COUNTER / 2} turns!`);
     RESET_BUTTON.classList.add("selected");

@@ -24,9 +24,6 @@ h1
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-auto-flow: row;
   row-gap: 30px;
-  /* column-gap: 30px; */
-
-  /* perspective: 800px; */
 
   background-image: url("images/bg-brick.jpeg");
   background-repeat: repeat;
@@ -54,9 +51,6 @@ h1
   width: 100%;
   height: 100%;
 
-
-  /* TEST */
-  text-align: center;
 }
 
 .back {
@@ -79,7 +73,8 @@ h1
 }
 
 .selected {
-  /*TK add a li'l glow or something? */
+  /* `outline` adds "border" w/out changing div size!
+  Doesn't mess with margins. */
   outline: 2px solid red;
 }
 
