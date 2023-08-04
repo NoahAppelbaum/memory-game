@@ -6,11 +6,18 @@ body{
 
 h1
 {
-  margin: 60px auto 40px;
+  margin: 60px auto 0px;
   color:rgb(243, 183, 193);
   font-size: 100px;
   text-shadow: 3px 1px black;
 
+}
+
+.high-score {
+  margin: 10px auto 40px;
+  color:rgb(243, 183, 193);
+  font-size: 40px;
+  text-shadow: 1px 1px black;
 }
 
 .gameboard {

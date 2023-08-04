@@ -14,6 +14,10 @@ const CARDS = document.getElementsByClassName('gamepiece');
 
 let CLICK_COUNTER = 0;
 
+//place high score if available on localStorage
+if (localStorage.getItem("highScore")) {
+  setHighScore(localStorage.getItem("highScore"));
+}
 
 //start game on load:
 startGame();
@@ -121,13 +125,25 @@ function endTurn() {
 }
 
 function endGame() {
-  //TK do something fun?
+
+  let numTurns = CLICK_COUNTER / 2;
 
   //setTimeout to allow last selected card to flip first
   setTimeout(function () {
-    alert(`Congratulations! You finished the game in ${CLICK_COUNTER / 2} turns!`);
+    alert(`Congratulations! You finished the game in ${numTurns} turns!`);
     RESET_BUTTON.classList.add("selected");
   }, 1000);
+
+  //high score business: check against localStorage, set if needed, and change text on page
+  if (localStorage.getItem("highScore")) {
+    if (numTurns < localStorage.getItem("highScore")) {
+      localStorage.setItem("highScore", numTurns);
+      setHighScore(numTurns);
+    }
+  } else {
+    localStorage.setItem("highScore", numTurns);
+    setHighScore(numTurns);
+  }
 }
 
 
@@ -148,3 +164,7 @@ RESET_BUTTON.addEventListener("click", function () {
     setTimeout(startGame, 1000);
   }
 });
+
+function setHighScore(score) {
+  document.querySelector(".high-score").innerText = `High Score: ${score}`;
+}
