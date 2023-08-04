@@ -80,6 +80,7 @@ h1
 
 .selected {
   /*TK add a li'l glow or something? */
+  outline: 2px solid red;
 }
 
 .reset {
@@ -100,9 +101,18 @@ h1
  z-index: -1;
 }
 
+/*if too small for default gameboard:  */
+@media screen and (max-width: 1200px) {
+  .gameboard {
+    width: 100%;
+  }
+}
+
+
 /* responsive grid layout!??
-This is not working :( TK */
-@media only screen and (max-width: 480px) {
+830px is the number where the content starts breaking out of the board
+ with the sizes I have set */
+@media screen and (max-width: 830px) {
   .gameboard {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;

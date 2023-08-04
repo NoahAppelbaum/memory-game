@@ -129,6 +129,7 @@ function endGame() {
   //setTimeout to allow last card to flip first
   setTimeout(function () {
     alert(`Congratulations! You finished the game in ${CLICK_COUNTER / 2} turns!`);
+    RESET_BUTTON.classList.add("selected");
   }, 1000);
 }
 
@@ -138,6 +139,8 @@ const RESET_BUTTON = document.querySelector('#reset-button');
 
 RESET_BUTTON.addEventListener("click", function () {
   if (confirm("Do you wish to restart the game?")) {
+
+    RESET_BUTTON.classList.remove("selected");
 
     //flip face-up cards
     for (let card of document.querySelectorAll(".flipped")) {
